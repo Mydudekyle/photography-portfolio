@@ -33,10 +33,11 @@
       // Music videos you directed — shown in the carousel. Add as many as you like:
       // { artist: "Artist Name", title: "Song Title", year: "2026", video: "YouTube/Vimeo link or media/file.mp4", image: "" }
       // (image is optional for YouTube — the thumbnail is pulled automatically)
+      // views: YouTube view count (checked Oct 16, 2026), shown as e.g. "2.2M views"
       musicVideos: [
-        { artist: "Nikki Paige", title: "Encore", year: "", video: "media/encore.mp4", image: "media/encore.jpg" },
-        { artist: "Nikki Paige", title: "Boycotting", year: "", video: "media/nikki-paige-boycotting.mp4", image: "media/nikki-paige-boycotting.jpg" },
-        { artist: "Nikki Paige", title: "WIGFTD", year: "", video: "media/nikki-paige-wigftd.mp4", image: "media/nikki-paige-wigftd.jpg" }
+        { artist: "Nikki Paige", title: "Encore", year: "2024", views: 252560, video: "media/encore.mp4", image: "media/encore.jpg" },
+        { artist: "Nikki Paige", title: "Boycotting", year: "2023", views: 2157229, video: "media/nikki-paige-boycotting.mp4", image: "media/nikki-paige-boycotting.jpg" },
+        { artist: "Nikki Paige", title: "WIGFTD", year: "2023", views: 503861, video: "media/nikki-paige-wigftd.mp4", image: "media/nikki-paige-wigftd.jpg" }
       ],
 
       // Projects run down the page in this order. For each one, add a
@@ -317,7 +318,7 @@
 
 <section id="music-videos">
   <div class="wrap">
-    <div class="section-head"><h2>Music videos</h2><span>Directed and edited by Kyle Russell</span></div>
+    <div class="section-head"><h2>Music videos</h2><span id="mv-sub">Directed and edited by Kyle Russell</span></div>
     <div class="mv-stage">
       <div class="frame" id="mv-frame"></div>
       <button class="mv-arrow mv-prev" id="mv-prev" aria-label="Previous music video">←</button>
@@ -462,6 +463,9 @@
   const ytId = url => (url || '').match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([\w-]{11})/)?.[1];
   const mvThumb = v => v.image || (ytId(v.video) ? `https://i.ytimg.com/vi/${ytId(v.video)}/hqdefault.jpg` : '');
   const MV = SITE.musicVideos;
+  const fmtViews = n => new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(n);
+  const mvTotal = MV.reduce((t, v) => t + (v.views || 0), 0);
+  if (mvTotal) $('mv-sub').textContent += ` · ${fmtViews(mvTotal)}+ views on YouTube`;
   let mvIndex = 0, soundOn = false, mvVisible = false;
 
   function mvMedia(v) {
@@ -493,7 +497,7 @@
     const v = MV[mvIndex];
     $('mv-frame').innerHTML = mvMedia(v);
     $('mv-title').textContent = `${v.artist} — \u201c${v.title}\u201d`;
-    $('mv-role').textContent = ['Director & Editor', v.year].filter(Boolean).join(' · ');
+    $('mv-role').textContent = ['Director & Editor', v.year, v.views && fmtViews(v.views) + ' views'].filter(Boolean).join(' · ');
     $('mv-count').textContent = `${String(mvIndex + 1).padStart(2, '0')} / ${String(MV.length).padStart(2, '0')}`;
     $('mv-thumbs').querySelectorAll('.mv-thumb').forEach((b, j) => {
       b.classList.toggle('active', j === mvIndex);
