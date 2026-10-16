@@ -37,7 +37,9 @@
           feature: { image: "media/andrew-davila-thumb.jpg", link: "https://www.youtube.com/watch?v=YqIjIuexgqY", caption: "Thumbnail of \"LAST TO LEAVE THE SOCCER FIELD!!\"" },
           videos: [
             { id: "YqIjIuexgqY", title: "LAST TO LEAVE THE SOCCER FIELD!!", views: 890632 }
-          ] }
+          ] },
+        // No feature/videos = shown as a compact channel card (photo + subscribers only)
+        { name: "kingCarlX", subscribers: 931000, url: "https://www.youtube.com/@kingCarlX", avatar: "media/kingcarlx-avatar.jpg", videos: [] }
       ],
 
       // Vertical reels (9:16) — shown first, under the header. Add as many as you like:
@@ -169,6 +171,8 @@
     .channel img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 1px solid var(--line); }
     .channel h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.1; }
     .channel .subs { color: var(--accent); font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; margin-top: 4px; }
+    .creator-compact { display: flex; flex-wrap: wrap; gap: 24px 56px; border-top: 1px solid var(--line); padding-top: 40px; }
+    .creator-compact .channel { margin-bottom: 0; }
     .creator ul { list-style: none; border-top: 1px solid var(--line); }
     .creator li { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: .92rem; }
     .creator li a { color: var(--text); text-decoration: none; }
@@ -621,7 +625,13 @@
     const totalSubs = SITE.filmedFor.reduce((t, c) => t + c.subscribers, 0);
     const totalViews = SITE.filmedFor.reduce((t, c) => t + ytViews(c), 0);
     $('creators-sub').textContent = `Filmer for channels with ${fmtViews(totalSubs)}+ subscribers · ${fmtViews(totalViews)}+ views`;
-    $('creator-list').innerHTML = SITE.filmedFor.map(c => {
+    const channelLink = c => `<a class="channel" href="${esc(c.url)}" target="_blank" rel="noopener">
+            <img src="${esc(c.avatar)}" alt="${esc(c.name)}" loading="lazy">
+            <div><h3>${esc(c.name)}</h3><div class="subs">${fmtSubs(c.subscribers)} subscribers</div></div>
+          </a>`;
+    const featured = SITE.filmedFor.filter(c => c.feature);
+    const compact = SITE.filmedFor.filter(c => !c.feature);
+    $('creator-list').innerHTML = featured.map(c => {
       const f = c.feature || {};
       const media = f.video
         ? `<video src="${esc(f.video)}" ${f.image ? `poster="${esc(f.image)}"` : ''} controls playsinline preload="metadata"></video>`
@@ -629,15 +639,12 @@
       return `<article class="creator">
         <div><div class="frame">${media}</div>${f.caption ? `<div class="cap">${esc(f.caption)}</div>` : ''}</div>
         <div>
-          <a class="channel" href="${esc(c.url)}" target="_blank" rel="noopener">
-            <img src="${esc(c.avatar)}" alt="${esc(c.name)}" loading="lazy">
-            <div><h3>${esc(c.name)}</h3><div class="subs">${fmtSubs(c.subscribers)} subscribers</div></div>
-          </a>
+          ${channelLink(c)}
           <div class="cap" style="margin:0 0 14px">${c.totalViews ? `${fmtViews(c.totalViews)}+ views across the videos I've shot for ${esc(c.name.split(' ')[0])}` : viewsLine(c)}</div>
           <ul>${c.videos.map(v => `<li><a href="https://www.youtube.com/watch?v=${esc(v.id)}" target="_blank" rel="noopener">${esc(v.title)}</a><span>${fmtViews(v.views)} views</span></li>`).join('')}</ul>
         </div>
       </article>`;
-    }).join('');
+    }).join('') + (compact.length ? `<div class="creator-compact">${compact.map(channelLink).join('')}</div>` : '');
   } else {
     $('creators').hidden = true;
     $('nav-creators').hidden = true;
