@@ -25,11 +25,18 @@
       // YouTube creators you've filmed for — shown in the header as proof.
       // Counts checked Oct 16, 2026; re-check before big updates.
       filmedFor: [
-        { name: "Anna McNulty", subscribers: 15200000, url: "https://www.youtube.com/@AnnaMcNulty",
+        { name: "Anna McNulty", subscribers: 15200000, url: "https://www.youtube.com/@AnnaMcNulty", avatar: "media/anna-mcnulty-avatar.jpg",
+          totalViews: 100000000,       // all the videos you've shot for her (the list below is a sample)
+          feature: { video: "media/anna-mcnulty-intro.mp4", image: "media/anna-mcnulty-intro.jpg", caption: "Intro of \"Mini Me vs World's Best Gymnast\"" },
           videos: [
             { id: "brXpmeLnkFk", title: "Mini Me vs World's Best Gymnast", views: 18561414 },
             { id: "XQScTHZl9hc", title: "Gymnast vs Every Sport!", views: 9676876 },
             { id: "C6LXwc3OrZc", title: "I Challenged the World's Best 9 Year Old Gymnast", views: 7451351 }
+          ] },
+        { name: "Andrew Davila", subscribers: 3990000, url: "https://www.youtube.com/@andrewdavila6696", avatar: "media/andrew-davila-avatar.jpg",
+          feature: { image: "media/andrew-davila-thumb.jpg", link: "https://www.youtube.com/watch?v=YqIjIuexgqY", caption: "Thumbnail of \"LAST TO LEAVE THE SOCCER FIELD!!\"" },
+          videos: [
+            { id: "YqIjIuexgqY", title: "LAST TO LEAVE THE SOCCER FIELD!!", views: 890632 }
           ] }
       ],
 
@@ -63,12 +70,6 @@
           role: "Film · Edit",
           blurb: "Event recap for Club Malibu: DJs, performers and the crowd, from the poolside day party into the night.",
           image: "media/club-malibu.jpg", video: "media/club-malibu.mp4"
-        },
-        {
-          title: "Anna McNulty",
-          role: "Camera · YouTube",
-          blurb: "Filmer for Anna McNulty's YouTube channel (15.2M subscribers). This intro is from \"Mini Me vs World's Best Gymnast\", which has 18.5M views; the three videos I shot have 35.7M combined.",
-          image: "media/anna-mcnulty-intro.jpg", video: "media/anna-mcnulty-intro.mp4"
         },
         {
           title: "Backdown Live",
@@ -157,6 +158,22 @@
     .hero p { max-width: 520px; color: var(--muted); margin: 24px 0 36px; font-size: 1.05rem; }
     .btns { display: flex; gap: 14px; flex-wrap: wrap; }
     .filmed-for { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: baseline; font-size: .9rem; color: var(--muted); }
+    .creator-list { display: grid; gap: clamp(48px, 7vw, 88px); }
+    .creator { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(24px, 4vw, 56px); align-items: center; }
+    .creator .frame img, .creator .frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .creator .frame a { display: block; height: 100%; }
+    .creator .frame .play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 68px; height: 48px; border-radius: 12px; background: rgba(255,0,0,.9); display: grid; place-items: center; pointer-events: none; }
+    .creator .frame .play::after { content: ""; border-left: 18px solid #fff; border-top: 11px solid transparent; border-bottom: 11px solid transparent; margin-left: 4px; }
+    .creator .cap { color: var(--muted); font-size: .8rem; margin-top: 10px; }
+    .channel { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; text-decoration: none; color: inherit; }
+    .channel img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 1px solid var(--line); }
+    .channel h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.1; }
+    .channel .subs { color: var(--accent); font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; margin-top: 4px; }
+    .creator ul { list-style: none; border-top: 1px solid var(--line); }
+    .creator li { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: .92rem; }
+    .creator li a { color: var(--text); text-decoration: none; }
+    .creator li a:hover { text-decoration: underline; }
+    .creator li span { color: var(--muted); white-space: nowrap; }
     .filmed-for .label { font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
     .filmed-for a { color: var(--text); text-decoration: none; }
     .filmed-for a:hover { text-decoration: underline; }
@@ -301,6 +318,7 @@
       .photo-grid img { margin-bottom: 10px; }
       .xp-row { grid-template-columns: 1fr; gap: 4px; }
       .camp-grid { grid-template-columns: 1fr; gap: 24px; }
+      .creator { grid-template-columns: 1fr; }
       .about img { max-width: 420px; }
     }
     @media (max-width: 480px) { .photo-grid { columns: 1; } }
@@ -313,6 +331,7 @@
   <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
   <ul id="menu">
     <li id="nav-reel"><a href="#reel">Reel</a></li>
+    <li id="nav-creators"><a href="#creators">YouTube</a></li>
     <li id="nav-mv"><a href="#music-videos">Music Videos</a></li>
     <li><a href="#campaigns">Campaigns</a></li>
     <li><a href="#work">Work</a></li>
@@ -340,6 +359,13 @@
   <div class="wrap">
     <div class="section-head"><h2>Reel</h2><span>Short-form · Shot and cut for social</span></div>
     <div class="reel-grid" id="reel-grid"></div>
+  </div>
+</section>
+
+<section id="creators">
+  <div class="wrap">
+    <div class="section-head"><h2>YouTube creators</h2><span id="creators-sub">Filmer for creator channels</span></div>
+    <div class="creator-list" id="creator-list"></div>
   </div>
 </section>
 
@@ -584,13 +610,37 @@
       </div>
     </article>`).join('');
 
-  // "Filmed for" proof line in the header
+  // YouTube creators: "Filmed for" line in the header + the creators section
+  const fmtSubs = n => new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 2 }).format(n);
+  const ytViews = c => c.totalViews || c.videos.reduce((t, v) => t + v.views, 0);
+  const viewsLine = c => `${fmtViews(ytViews(c))} views` + (c.videos.length > 1 ? ` across ${c.videos.length} videos` : '');
   if (SITE.filmedFor.length) {
-    $('filmed-for').innerHTML = '<span class="label">Filmed for</span>' + SITE.filmedFor.map(c => {
-      const views = c.videos.reduce((t, v) => t + v.views, 0);
-      return `<span><a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.name)}</a> · ${fmtViews(c.subscribers)} subscribers · ${fmtViews(views)} views across ${c.videos.length} videos</span>`;
-    }).join('');
+    $('filmed-for').innerHTML = '<span class="label">Filmed for</span>' + SITE.filmedFor.map(c =>
+      `<span><a href="#creators">${esc(c.name)}</a> · ${fmtSubs(c.subscribers)} subscribers</span>`).join('');
     $('filmed-for').hidden = false;
+    const totalSubs = SITE.filmedFor.reduce((t, c) => t + c.subscribers, 0);
+    const totalViews = SITE.filmedFor.reduce((t, c) => t + ytViews(c), 0);
+    $('creators-sub').textContent = `Filmer for channels with ${fmtViews(totalSubs)}+ subscribers · ${fmtViews(totalViews)}+ views`;
+    $('creator-list').innerHTML = SITE.filmedFor.map(c => {
+      const f = c.feature || {};
+      const media = f.video
+        ? `<video src="${esc(f.video)}" ${f.image ? `poster="${esc(f.image)}"` : ''} controls playsinline preload="metadata"></video>`
+        : `<a href="${esc(f.link || c.url)}" target="_blank" rel="noopener"><img src="${esc(f.image)}" alt="${esc(f.caption || c.name)}" loading="lazy"><span class="play"></span></a>`;
+      return `<article class="creator">
+        <div><div class="frame">${media}</div>${f.caption ? `<div class="cap">${esc(f.caption)}</div>` : ''}</div>
+        <div>
+          <a class="channel" href="${esc(c.url)}" target="_blank" rel="noopener">
+            <img src="${esc(c.avatar)}" alt="${esc(c.name)}" loading="lazy">
+            <div><h3>${esc(c.name)}</h3><div class="subs">${fmtSubs(c.subscribers)} subscribers</div></div>
+          </a>
+          <div class="cap" style="margin:0 0 14px">${c.totalViews ? `${fmtViews(c.totalViews)}+ views across the videos I've shot for ${esc(c.name.split(' ')[0])}` : viewsLine(c)}</div>
+          <ul>${c.videos.map(v => `<li><a href="https://www.youtube.com/watch?v=${esc(v.id)}" target="_blank" rel="noopener">${esc(v.title)}</a><span>${fmtViews(v.views)} views</span></li>`).join('')}</ul>
+        </div>
+      </article>`;
+    }).join('');
+  } else {
+    $('creators').hidden = true;
+    $('nav-creators').hidden = true;
   }
 
   // Reels (section hides itself until you add some)
