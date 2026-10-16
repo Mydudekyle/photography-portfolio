@@ -76,6 +76,10 @@
 
       // Artist campaigns: headline numbers and who you've run ads for.
       // Leave empty to hide. Example stats: { value: "2M+", label: "Views driven" }
+      campaignAds: [                   // vertical ad creative shown in the section
+        { title: "Forever and Always · Performance spot", credit: "Nikki Paige & Desren · Spotify ad", video: "media/ad-forever-and-always-performance.mp4", image: "media/ad-forever-and-always-performance.jpg" },
+        { title: "Forever and Always · Artwork spot", credit: "Nikki Paige & Desren · Spotify ad", video: "media/ad-forever-and-always-artwork.mp4", image: "media/ad-forever-and-always-artwork.jpg" }
+      ],
       campaignStats: [],
       campaignClients: [],             // e.g. ["Label Name", "Artist Name"]
 
@@ -219,7 +223,8 @@
     .camp-stats { display: flex; flex-wrap: wrap; gap: 48px; margin-top: 56px; }
     .camp-stats strong { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 5vw, 3rem); color: var(--accent); line-height: 1; }
     .camp-stats span { color: var(--muted); font-size: .85rem; }
-    .camp-stats:empty { display: none; }
+    .camp-ads { margin-top: 56px; }
+    .camp-ads:empty, .camp-stats:empty { display: none; }
     .camp-clients { margin-top: 40px; color: var(--muted); font-size: .9rem; }
 
     .skills { display: flex; flex-wrap: wrap; gap: 8px; margin: 28px 0 32px; }
@@ -335,6 +340,7 @@
       <div><h3>Creative</h3><p>Cutdowns, hooks and vertical edits made from the artist's own footage and built to hold attention in the feed.</p></div>
       <div><h3>Results</h3><p>Views, watch time and audience growth tracked through the campaign, with clear reporting back to the label.</p></div>
     </div>
+    <div class="reel-grid camp-ads" id="camp-ads"></div>
     <div class="camp-stats" id="camp-stats"></div>
     <p class="camp-clients" id="camp-clients" hidden></p>
   </div>
@@ -547,18 +553,20 @@
     </article>`).join('');
 
   // Reels (section hides itself until you add some)
-  if (SITE.reels.length) {
-    $('reel-grid').innerHTML = SITE.reels.map(r => `<article class="reel-card">
+  const reelCard = r => `<article class="reel-card">
       <video src="${esc(r.video)}" ${r.image ? `poster="${esc(r.image)}"` : ''} controls playsinline preload="metadata"></video>
       <h3>${esc(r.title)}</h3>
       ${r.credit ? `<div class="role">${esc(r.credit)}</div>` : ''}
-    </article>`).join('');
+    </article>`;
+  if (SITE.reels.length) {
+    $('reel-grid').innerHTML = SITE.reels.map(reelCard).join('');
   } else {
     $('reel').hidden = true;
     $('nav-reel').hidden = true;
   }
 
-  // Artist campaign numbers and clients (each hides itself until filled in)
+  // Artist campaign ads, numbers and clients (each hides itself until filled in)
+  $('camp-ads').innerHTML = SITE.campaignAds.map(reelCard).join('');
   $('camp-stats').innerHTML = SITE.campaignStats.map(s => `<div><strong>${esc(s.value)}</strong><span>${esc(s.label)}</span></div>`).join('');
   if (SITE.campaignClients.length) {
     $('camp-clients').textContent = 'Campaigns for ' + SITE.campaignClients.join(' · ');
