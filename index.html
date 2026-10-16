@@ -7,7 +7,7 @@
   <meta name="description" content="Kyle Russell is a Los Angeles director, videographer and social media producer. Reel, selected work, photography and contact." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Big+Shoulders+Display:wght@700;800&display=swap" rel="stylesheet" />
 
   <script>
     /* ══════════════════════════════════════════════════════════════
@@ -138,7 +138,7 @@
       --accent: #d4a85a;
       --max: 1180px;
       --gutter: clamp(16px, 4vw, 48px);
-      --serif: 'Fraunces', Georgia, serif;
+      --serif: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
       --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
@@ -157,7 +157,7 @@
       border-bottom: 1px solid transparent;
     }
     nav.solid { background: rgba(13,13,14,.88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-color: var(--line); }
-    .logo { font-family: var(--serif); font-size: 1.15rem; letter-spacing: .04em; text-decoration: none; }
+    .logo { font-family: var(--serif); font-weight: 800; text-transform: uppercase; font-size: 1.35rem; letter-spacing: .06em; text-decoration: none; }
     nav ul { list-style: none; display: flex; gap: 32px; }
     nav ul a { text-decoration: none; font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); transition: color .2s; }
     nav ul a:hover { color: var(--text); }
@@ -169,7 +169,7 @@
     .hero-bg video { width: 100%; height: 100%; object-fit: cover; opacity: .45; }
     .hero-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, var(--bg) 5%, transparent 60%); }
     .eyebrow { font-size: .78rem; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
-    .hero h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.8rem, 9vw, 7rem); line-height: .98; letter-spacing: -.02em; }
+    .hero h1 { font-family: var(--serif); font-weight: 800; text-transform: uppercase; font-size: clamp(3.4rem, 11vw, 8.5rem); line-height: .9; letter-spacing: 0; }
     .hero p { max-width: 520px; color: var(--muted); margin: 24px 0 36px; font-size: 1.05rem; }
     .btns { display: flex; gap: 14px; flex-wrap: wrap; }
     .filmed-for { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: baseline; font-size: .9rem; color: var(--muted); }
@@ -182,7 +182,7 @@
     .creator .cap { color: var(--muted); font-size: .8rem; margin-top: 10px; }
     .channel { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; text-decoration: none; color: inherit; }
     .channel img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 1px solid var(--line); }
-    .channel h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.1; }
+    .channel h3 { font-family: var(--serif); font-weight: 700; text-transform: uppercase; font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.1; }
     .channel .subs { color: var(--accent); font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; margin-top: 4px; }
     .creator-compact { display: flex; flex-wrap: wrap; gap: 24px 56px; border-top: 1px solid var(--line); padding-top: 40px; }
     .creator-compact .channel { margin-bottom: 0; }
@@ -207,7 +207,7 @@
     /* ── SECTIONS ── */
     section { padding: clamp(72px, 10vw, 128px) 0; border-top: 1px solid var(--line); }
     .section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; margin-bottom: 48px; flex-wrap: wrap; }
-    h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: -.01em; }
+    h2 { font-family: var(--serif); font-weight: 800; text-transform: uppercase; font-size: clamp(2.4rem, 6vw, 4rem); line-height: 1; letter-spacing: .01em; }
     .section-head span { color: var(--muted); font-size: .9rem; }
 
     /* ── MEDIA FRAMES ── */
@@ -220,15 +220,15 @@
     .work-list { display: grid; gap: clamp(64px, 9vw, 112px); }
     .work-card .frame { margin-bottom: 28px; }
     .work-meta { display: grid; grid-template-columns: 64px 1fr 1.2fr; gap: 24px; align-items: baseline; }
-    .work-num { font-family: var(--serif); color: var(--muted); font-size: 1.1rem; }
-    .work-card h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.6rem, 3.5vw, 2.4rem); line-height: 1.1; }
+    .work-num { font-family: var(--serif); font-weight: 700; color: var(--muted); font-size: 1.1rem; }
+    .work-card h3 { font-family: var(--serif); font-weight: 700; text-transform: uppercase; font-size: clamp(1.6rem, 3.5vw, 2.4rem); line-height: 1.1; }
     .work-card .role { font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-top: 8px; }
     .work-card p { color: var(--muted); font-size: 1rem; max-width: 56ch; }
 
     /* ── MUSIC VIDEO CAROUSEL ── */
     .reel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 320px)); gap: 24px; }
     .reel-card video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; background: #000; border-radius: 6px; display: block; }
-    .reel-card h3 { font-family: var(--serif); font-weight: 400; font-size: 1.4rem; margin-top: 16px; }
+    .reel-card h3 { font-family: var(--serif); font-weight: 700; text-transform: uppercase; font-size: 1.6rem; line-height: 1.05; margin-top: 16px; }
     .reel-card .role { font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-top: 6px; }
     .mv-stage { position: relative; }
     .mv-stage .frame { cursor: pointer; }
@@ -250,9 +250,9 @@
     .mv-arrow:hover { background: var(--text); color: var(--bg); }
     .mv-prev { left: 16px; } .mv-next { right: 16px; }
     .mv-info { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-top: 24px; flex-wrap: wrap; }
-    .mv-info h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.6rem, 3.5vw, 2.4rem); line-height: 1.1; }
+    .mv-info h3 { font-family: var(--serif); font-weight: 700; text-transform: uppercase; font-size: clamp(1.6rem, 3.5vw, 2.4rem); line-height: 1.1; }
     .mv-info .role { font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-top: 8px; }
-    .mv-count { font-family: var(--serif); color: var(--muted); }
+    .mv-count { font-family: var(--serif); font-weight: 700; color: var(--muted); }
     .mv-thumbs { display: flex; gap: 12px; margin-top: 28px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; scrollbar-width: thin; }
     .mv-thumb { flex: 0 0 180px; scroll-snap-align: start; background: none; border: 0; padding: 0; color: var(--muted); text-align: left; cursor: pointer; font: inherit; font-size: .8rem; }
     .mv-thumb .t { aspect-ratio: 16 / 9; border-radius: 4px; overflow: hidden; background: var(--bg-2); border: 2px solid transparent; margin-bottom: 8px; position: relative; transition: border-color .2s; }
@@ -280,13 +280,13 @@
     .about p { color: var(--muted); margin-bottom: 18px; font-size: 1.05rem; max-width: 56ch; }
     .about p strong { color: var(--text); font-weight: 500; }
     /* ── ARTIST CAMPAIGNS ── */
-    .camp-lead { font-family: var(--serif); font-size: clamp(1.3rem, 2.6vw, 1.9rem); line-height: 1.3; max-width: 32ch; margin-bottom: 56px; }
+    .camp-lead { font-weight: 500; font-size: clamp(1.15rem, 2.2vw, 1.5rem); line-height: 1.45; max-width: 32ch; margin-bottom: 56px; }
     .camp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
     .camp-grid div { border-top: 1px solid var(--line); padding-top: 20px; }
     .camp-grid h3 { font-weight: 500; font-size: 1.1rem; margin-bottom: 8px; }
     .camp-grid p { color: var(--muted); font-size: .95rem; }
     .camp-stats { display: flex; flex-wrap: wrap; gap: 48px; margin-top: 56px; }
-    .camp-stats strong { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 5vw, 3rem); color: var(--accent); line-height: 1; }
+    .camp-stats strong { display: block; font-family: var(--serif); font-weight: 800; font-size: clamp(2rem, 5vw, 3rem); color: var(--accent); line-height: 1; }
     .camp-stats span { color: var(--muted); font-size: .85rem; }
     .camp-ads { margin-top: 56px; }
     .camp-ads:empty, .camp-stats:empty { display: none; }
