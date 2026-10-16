@@ -50,7 +50,8 @@
         { title: "Casino Night", credit: "Private event · Shot & edited", video: "media/reel-mansion-event.mp4", image: "media/reel-mansion-event.jpg" },
         { title: "Arturia Studio Session", credit: "Nikki Paige · Studiyacht", video: "media/reel-arturia-studio.mp4", image: "media/reel-arturia-studio.jpg" },
         { title: "\"Are You a Raver?\"", credit: "Podcast clip · Vertical cut & captions", video: "media/reel-podcast-raver.mp4", image: "media/reel-podcast-raver.jpg" },
-        { title: "Boycotting · Teaser", credit: "Nikki Paige · Directed by Kyle Russell", video: "media/reel-boycotting-teaser.mp4", image: "media/reel-boycotting-teaser.jpg" }
+        { title: "Boycotting · Teaser", credit: "Nikki Paige · Directed by Kyle Russell", video: "media/reel-boycotting-teaser.mp4", image: "media/reel-boycotting-teaser.jpg" },
+        { title: "Festival Main Stage", credit: "Live performance recap · Shot & edited", video: "media/reel-festival-stage.mp4", image: "media/reel-festival-stage.jpg" }
       ],
 
       // Music videos you directed — shown in the carousel. Add as many as you like:
@@ -346,9 +347,9 @@
   <a href="#top" class="logo">Kyle Russell</a>
   <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
   <ul id="menu">
-    <li id="nav-reel"><a href="#reel">Reel</a></li>
-    <li id="nav-creators"><a href="#creators">YouTube</a></li>
     <li id="nav-mv"><a href="#music-videos">Music Videos</a></li>
+    <li id="nav-creators"><a href="#creators">YouTube</a></li>
+    <li id="nav-reel"><a href="#reel">Reel</a></li>
     <li><a href="#campaigns">Campaigns</a></li>
     <li><a href="#work">Work</a></li>
     <li id="nav-photo"><a href="#photo">Photo</a></li>
@@ -364,26 +365,12 @@
     <h1>From the stage<br />to the screen.</h1>
     <p>I'm Kyle Russell, a Los Angeles director and videographer. I shoot, edit and deliver end to end, from live broadcasts and multicam podcasts to short-form social.</p>
     <div class="btns">
-      <a href="#work" class="btn primary">See the work ↓</a>
+      <a href="#music-videos" class="btn primary">See the work ↓</a>
       <a href="#contact" class="btn">Get in touch</a>
     </div>
     <div class="filmed-for" id="filmed-for" hidden></div>
   </div>
 </header>
-
-<section id="reel">
-  <div class="wrap">
-    <div class="section-head"><h2>Reel</h2><span>Short-form · Shot and cut for social</span></div>
-    <div class="reel-grid" id="reel-grid"></div>
-  </div>
-</section>
-
-<section id="creators">
-  <div class="wrap">
-    <div class="section-head"><h2>YouTube creators</h2><span id="creators-sub">Filmer for creator channels</span></div>
-    <div class="creator-list" id="creator-list"></div>
-  </div>
-</section>
 
 <section id="music-videos">
   <div class="wrap">
@@ -398,6 +385,20 @@
       <div class="mv-count" id="mv-count"></div>
     </div>
     <div class="mv-thumbs" id="mv-thumbs" role="tablist" aria-label="Music videos"></div>
+  </div>
+</section>
+
+<section id="creators">
+  <div class="wrap">
+    <div class="section-head"><h2>YouTube creators</h2><span id="creators-sub">Filmer for creator channels</span></div>
+    <div class="creator-list" id="creator-list"></div>
+  </div>
+</section>
+
+<section id="reel">
+  <div class="wrap">
+    <div class="section-head"><h2>Reel</h2><span>Short-form · Shot and cut for social</span></div>
+    <div class="reel-grid" id="reel-grid"></div>
   </div>
 </section>
 
