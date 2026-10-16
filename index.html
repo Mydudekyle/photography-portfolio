@@ -62,7 +62,8 @@
         { artist: "Nikki Paige", title: "Consider Yourself", year: "2025", views: 3104362, video: "media/nikki-paige-consider-yourself.mp4", image: "media/nikki-paige-consider-yourself.jpg" },
         { artist: "Nikki Paige", title: "Encore", year: "2024", views: 252560, video: "media/encore.mp4", image: "media/encore.jpg" },
         { artist: "Nikki Paige", title: "Boycotting", year: "2023", views: 2157229, video: "media/nikki-paige-boycotting.mp4", image: "media/nikki-paige-boycotting.jpg" },
-        { artist: "Nikki Paige", title: "WIGFTD", year: "2023", views: 503861, video: "media/nikki-paige-wigftd.mp4", image: "media/nikki-paige-wigftd.jpg" }
+        { artist: "Nikki Paige", title: "WIGFTD", year: "2023", views: 503861, video: "media/nikki-paige-wigftd.mp4", image: "media/nikki-paige-wigftd.jpg" },
+        { artist: "Johnny Wvlker", title: "MASK ON", year: "2024", views: 36203, role: "Director · Camera · Editor", video: "media/johnny-wvlker-mask-on.mp4", image: "media/johnny-wvlker-mask-on.jpg" }
       ],
 
       // Projects run down the page in this order. For each one, add a
@@ -569,7 +570,7 @@
     const v = MV[mvIndex];
     $('mv-frame').innerHTML = mvMedia(v);
     $('mv-title').textContent = `${v.artist} — \u201c${v.title}\u201d`;
-    $('mv-role').textContent = ['Director & Editor', v.year, v.views && fmtViews(v.views) + ' views'].filter(Boolean).join(' · ');
+    $('mv-role').textContent = [v.role || 'Director & Editor', v.year, v.views && fmtViews(v.views) + ' views'].filter(Boolean).join(' · ');
     $('mv-count').textContent = `${String(mvIndex + 1).padStart(2, '0')} / ${String(MV.length).padStart(2, '0')}`;
     $('mv-thumbs').querySelectorAll('.mv-thumb').forEach((b, j) => {
       b.classList.toggle('active', j === mvIndex);
