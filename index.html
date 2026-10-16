@@ -74,6 +74,11 @@
         }
       ],
 
+      // Artist campaigns: headline numbers and who you've run ads for.
+      // Leave empty to hide. Example stats: { value: "2M+", label: "Views driven" }
+      campaignStats: [],
+      campaignClients: [],             // e.g. ["Label Name", "Artist Name"]
+
       // Photography: list your image files, e.g. ["media/photo-01.jpg", "media/photo-02.jpg"]
       photos: ["media/_DSC0246.jpg", "media/_DSC1710.jpg", "media/_DSC1752.jpg", "media/_DSC1793.jpg", "media/_DSC1802.jpg", "media/_DSC1814.jpg", "media/_DSC6100.jpg", "media/_DSC8526.jpg", "media/_DSC8554.jpg"]
     };
@@ -205,6 +210,18 @@
     .about img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 30%; border-radius: 6px; }
     .about p { color: var(--muted); margin-bottom: 18px; font-size: 1.05rem; max-width: 56ch; }
     .about p strong { color: var(--text); font-weight: 500; }
+    /* ── ARTIST CAMPAIGNS ── */
+    .camp-lead { font-family: var(--serif); font-size: clamp(1.3rem, 2.6vw, 1.9rem); line-height: 1.3; max-width: 32ch; margin-bottom: 56px; }
+    .camp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .camp-grid div { border-top: 1px solid var(--line); padding-top: 20px; }
+    .camp-grid h3 { font-weight: 500; font-size: 1.1rem; margin-bottom: 8px; }
+    .camp-grid p { color: var(--muted); font-size: .95rem; }
+    .camp-stats { display: flex; flex-wrap: wrap; gap: 48px; margin-top: 56px; }
+    .camp-stats strong { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 5vw, 3rem); color: var(--accent); line-height: 1; }
+    .camp-stats span { color: var(--muted); font-size: .85rem; }
+    .camp-stats:empty { display: none; }
+    .camp-clients { margin-top: 40px; color: var(--muted); font-size: .9rem; }
+
     .skills { display: flex; flex-wrap: wrap; gap: 8px; margin: 28px 0 32px; }
     .skills li { list-style: none; border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: .8rem; color: var(--text); }
 
@@ -251,6 +268,7 @@
       .photo-grid { columns: 2; column-gap: 10px; }
       .photo-grid img { margin-bottom: 10px; }
       .xp-row { grid-template-columns: 1fr; gap: 4px; }
+      .camp-grid { grid-template-columns: 1fr; gap: 24px; }
       .about img { max-width: 420px; }
     }
     @media (max-width: 480px) { .photo-grid { columns: 1; } }
@@ -264,6 +282,7 @@
   <ul id="menu">
     <li id="nav-reel"><a href="#reel">Reel</a></li>
     <li id="nav-mv"><a href="#music-videos">Music Videos</a></li>
+    <li><a href="#campaigns">Campaigns</a></li>
     <li><a href="#work">Work</a></li>
     <li id="nav-photo"><a href="#photo">Photo</a></li>
     <li><a href="#about">About</a></li>
@@ -304,6 +323,20 @@
       <div class="mv-count" id="mv-count"></div>
     </div>
     <div class="mv-thumbs" id="mv-thumbs" role="tablist" aria-label="Music videos"></div>
+  </div>
+</section>
+
+<section id="campaigns">
+  <div class="wrap">
+    <div class="section-head"><h2>Artist campaigns</h2><span>Paid media for record labels and artists</span></div>
+    <p class="camp-lead">I run paid campaigns for record labels and independent artists, putting new releases and music videos in front of the right listeners and turning views into fans.</p>
+    <div class="camp-grid">
+      <div><h3>Strategy</h3><p>Audience targeting, budgets and timing planned around each release, from the first teaser to the full video drop.</p></div>
+      <div><h3>Creative</h3><p>Cutdowns, hooks and vertical edits made from the artist's own footage and built to hold attention in the feed.</p></div>
+      <div><h3>Results</h3><p>Views, watch time and audience growth tracked through the campaign, with clear reporting back to the label.</p></div>
+    </div>
+    <div class="camp-stats" id="camp-stats"></div>
+    <p class="camp-clients" id="camp-clients" hidden></p>
   </div>
 </section>
 
@@ -523,6 +556,13 @@
   } else {
     $('reel').hidden = true;
     $('nav-reel').hidden = true;
+  }
+
+  // Artist campaign numbers and clients (each hides itself until filled in)
+  $('camp-stats').innerHTML = SITE.campaignStats.map(s => `<div><strong>${esc(s.value)}</strong><span>${esc(s.label)}</span></div>`).join('');
+  if (SITE.campaignClients.length) {
+    $('camp-clients').textContent = 'Campaigns for ' + SITE.campaignClients.join(' · ');
+    $('camp-clients').hidden = false;
   }
 
   // Photos (section hides itself until you add some)
