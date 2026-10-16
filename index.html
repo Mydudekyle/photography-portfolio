@@ -22,6 +22,12 @@
       location: "Los Angeles / Malibu, CA",
       resumeUrl: "",                   // link to a PDF of your resume, e.g. "media/Kyle-Russell-Resume.pdf"
 
+      // Vertical reels (9:16) — shown first, under the header. Add as many as you like:
+      // { title: "Clip name", credit: "Artist / client", video: "media/file.mp4", image: "media/file.jpg" }
+      reels: [
+        { title: "On the TMZ Bus", credit: "Nikki Paige ft. Cat Daddy", video: "media/reel-nikki-paige-tmz-bus.mp4", image: "media/reel-nikki-paige-tmz-bus.jpg" }
+      ],
+
       // Music videos you directed — shown in the carousel. Add as many as you like:
       // { artist: "Artist Name", title: "Song Title", year: "2026", video: "YouTube/Vimeo link or media/file.mp4", image: "" }
       // (image is optional for YouTube — the thumbnail is pulled automatically)
@@ -137,6 +143,10 @@
     .work-card p { color: var(--muted); font-size: 1rem; max-width: 56ch; }
 
     /* ── MUSIC VIDEO CAROUSEL ── */
+    .reel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 320px)); gap: 24px; }
+    .reel-card video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; background: #000; border-radius: 6px; display: block; }
+    .reel-card h3 { font-family: var(--serif); font-weight: 400; font-size: 1.4rem; margin-top: 16px; }
+    .reel-card .role { font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-top: 6px; }
     .mv-stage { position: relative; }
     .mv-stage .frame { cursor: pointer; }
     .mv-stage video { cursor: pointer; object-fit: contain; background: #000; }
@@ -238,6 +248,7 @@
   <a href="#top" class="logo">Kyle Russell</a>
   <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
   <ul id="menu">
+    <li id="nav-reel"><a href="#reel">Reel</a></li>
     <li id="nav-mv"><a href="#music-videos">Music Videos</a></li>
     <li><a href="#work">Work</a></li>
     <li id="nav-photo"><a href="#photo">Photo</a></li>
@@ -258,6 +269,13 @@
     </div>
   </div>
 </header>
+
+<section id="reel">
+  <div class="wrap">
+    <div class="section-head"><h2>Reel</h2><span>Short-form · Shot and cut for social</span></div>
+    <div class="reel-grid" id="reel-grid"></div>
+  </div>
+</section>
 
 <section id="music-videos">
   <div class="wrap">
@@ -480,6 +498,18 @@
         <p>${esc(w.blurb)}</p>
       </div>
     </article>`).join('');
+
+  // Reels (section hides itself until you add some)
+  if (SITE.reels.length) {
+    $('reel-grid').innerHTML = SITE.reels.map(r => `<article class="reel-card">
+      <video src="${esc(r.video)}" ${r.image ? `poster="${esc(r.image)}"` : ''} controls playsinline preload="metadata"></video>
+      <h3>${esc(r.title)}</h3>
+      ${r.credit ? `<div class="role">${esc(r.credit)}</div>` : ''}
+    </article>`).join('');
+  } else {
+    $('reel').hidden = true;
+    $('nav-reel').hidden = true;
+  }
 
   // Photos (section hides itself until you add some)
   if (SITE.photos.length) {
