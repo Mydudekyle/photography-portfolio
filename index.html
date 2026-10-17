@@ -229,6 +229,16 @@
     .reel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 320px)); gap: 24px; }
     .reel-card video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; background: #000; border-radius: 6px; display: block; }
     .reel-card h3 { font-family: var(--serif); font-weight: 700; text-transform: uppercase; font-size: 1.6rem; line-height: 1.05; margin-top: 16px; }
+    /* Reel carousel: swipe sideways on phones, arrows on desktop */
+    .reel-stage { position: relative; }
+    .reel-track { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+    .reel-track::-webkit-scrollbar { display: none; }
+    .reel-track .reel-card { flex: 0 0 min(68vw, 300px); scroll-snap-align: start; }
+    .reel-stage .mv-arrow { top: 42%; }
+    .reel-prev { left: -12px; } .reel-next { right: -12px; }
+    .reel-stage .mv-arrow[disabled] { opacity: 0; pointer-events: none; }
+    .reel-count { color: var(--muted); font-size: .85rem; margin-top: 14px; }
+    @media (hover: none) { .reel-stage .mv-arrow { display: none; } }
     .reel-card .role { font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-top: 6px; }
     .mv-stage { position: relative; }
     .mv-stage .frame { cursor: pointer; }
@@ -403,7 +413,12 @@
 <section id="reel">
   <div class="wrap">
     <div class="section-head"><h2>Reel</h2><span>Short-form · Shot and cut for social</span></div>
-    <div class="reel-grid" id="reel-grid"></div>
+    <div class="reel-stage">
+      <div class="reel-grid reel-track" id="reel-grid"></div>
+      <button class="mv-arrow reel-prev" id="reel-prev" aria-label="Previous reel">←</button>
+      <button class="mv-arrow reel-next" id="reel-next" aria-label="Next reel">→</button>
+    </div>
+    <div class="reel-count" id="reel-count"></div>
   </div>
 </section>
 
@@ -676,7 +691,24 @@
       ${r.credit ? `<div class="role">${esc(r.credit)}</div>` : ''}
     </article>`;
   if (SITE.reels.length) {
-    $('reel-grid').innerHTML = SITE.reels.map(reelCard).join('');
+    const track = $('reel-grid');
+    track.innerHTML = SITE.reels.map(reelCard).join('');
+    const cards = [...track.children];
+    const step = () => cards[0].getBoundingClientRect().width + 16;
+    const current = () => Math.round(track.scrollLeft / step());
+    const update = () => {
+      const i = Math.min(current(), cards.length - 1);
+      $('reel-count').textContent = `${i + 1} / ${cards.length} · swipe for more`;
+      $('reel-prev').disabled = track.scrollLeft < 8;
+      $('reel-next').disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8;
+    };
+    $('reel-prev').addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+    $('reel-next').addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+    track.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+    window.addEventListener('resize', update);
+    // Only one reel plays at a time
+    track.addEventListener('play', e => cards.forEach(c => { const v = c.querySelector('video'); if (v !== e.target) v.pause(); }), true);
+    update();
   } else {
     $('reel').hidden = true;
     $('nav-reel').hidden = true;
