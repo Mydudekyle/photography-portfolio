@@ -39,10 +39,8 @@
             { id: "YqIjIuexgqY", title: "LAST TO LEAVE THE SOCCER FIELD!!", views: 890632 }
           ] },
         { name: "kingCarlX", subscribers: 931000, url: "https://www.youtube.com/@kingCarlX", avatar: "media/kingcarlx-avatar.jpg",
-          feature: { image: "media/kingcarlx-thumb.jpg", link: "https://www.youtube.com/watch?v=4AJLZzlgUgE", caption: "\"Will Her Fiancé Cheat While She Secretly Watches?!\"" },
-          videos: [
-            { id: "4AJLZzlgUgE", title: "Will Her Fiancé Cheat While She Secretly Watches?!", views: 36170 }
-          ] }
+          feature: { video: "media/kingcarlx-intro.mp4", image: "media/kingcarlx-thumb.jpg", caption: "Intro of \"Will Her Fiancé Cheat While She Secretly Watches?!\"" },
+          videos: [] }
         // No feature/videos = shown as a compact channel card (photo + subscribers only)
       ],
 
@@ -678,8 +676,8 @@
         <div><div class="frame">${media}</div>${f.caption ? `<div class="cap">${esc(f.caption)}</div>` : ''}</div>
         <div>
           ${channelLink(c)}
-          <div class="cap" style="margin:0 0 14px">${c.totalViews ? `${fmtViews(c.totalViews)}+ views across the videos I've shot for ${esc(c.name.split(' ')[0])}` : viewsLine(c)}</div>
-          <ul>${c.videos.map(v => `<li><a href="https://www.youtube.com/watch?v=${esc(v.id)}" target="_blank" rel="noopener">${esc(v.title)}</a><span>${fmtViews(v.views)} views</span></li>`).join('')}</ul>
+          ${ytViews(c) ? `<div class="cap" style="margin:0 0 14px">${c.totalViews ? `${fmtViews(c.totalViews)}+ views across the videos I've shot for ${esc(c.name.split(' ')[0])}` : viewsLine(c)}</div>` : ''}
+          ${c.videos.length ? `<ul>${c.videos.map(v => `<li><a href="https://www.youtube.com/watch?v=${esc(v.id)}" target="_blank" rel="noopener">${esc(v.title)}</a><span>${fmtViews(v.views)} views</span></li>`).join('')}</ul>` : ''}
         </div>
       </article>`;
     }).join('') + (compact.length ? `<div class="creator-compact">${compact.map(channelLink).join('')}</div>` : '');
